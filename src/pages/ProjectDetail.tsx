@@ -152,11 +152,14 @@ export default function ProjectDetail() {
 
           {/* Architecture diagram */}
           <Block icon={<Layers size={20} />} title="Architecture Diagram" accent={accent.to}>
-            <div className="flex flex-col items-stretch gap-3 md:flex-row md:items-center md:overflow-x-auto md:pb-2">
+            <div className="flex flex-col items-center gap-1 md:flex-row md:flex-wrap md:justify-center md:gap-y-3">
               {project.architecture.map((node, i) => (
-                <div key={node.id} className="flex items-center gap-3 md:flex-col md:gap-0">
+                <div
+                  key={node.id}
+                  className="flex w-full flex-col items-center md:w-auto md:flex-row"
+                >
                   <div
-                    className="w-full rounded-2xl border p-4 text-center md:min-w-[150px]"
+                    className="flex w-full flex-col justify-center rounded-2xl border p-4 text-center md:h-[112px] md:w-[160px]"
                     style={{
                       borderColor: accent.ring,
                       background: `linear-gradient(160deg, ${accent.from}1a, transparent)`,
@@ -166,7 +169,10 @@ export default function ProjectDetail() {
                     <p className="mt-1 text-xs leading-snug text-white/55">{node.detail}</p>
                   </div>
                   {i < project.architecture.length - 1 && (
-                    <span className="shrink-0 text-white/30 md:my-1 md:rotate-90">→</span>
+                    <span className="my-1 select-none text-lg text-white/30 md:mx-2 md:my-0">
+                      <span className="md:hidden">↓</span>
+                      <span className="hidden md:inline">→</span>
+                    </span>
                   )}
                 </div>
               ))}

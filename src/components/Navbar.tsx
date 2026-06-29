@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { profile } from '../data/profile'
+import { handleAnchorClick, scrollToId } from '../lib/scroll'
 
 const links = [
-  { label: 'About', href: '#about' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'About', id: 'about' },
+  { label: 'Skills', id: 'skills' },
+  { label: 'Experience', id: 'experience' },
+  { label: 'Projects', id: 'projects' },
+  { label: 'Contact', id: 'contact' },
 ]
 
 export default function Navbar() {
@@ -32,7 +33,14 @@ export default function Navbar() {
         }`}
         style={{ ['--grad-from' as string]: 'rgba(255,255,255,0.4)' }}
       >
-        <a href="#top" className="flex items-center gap-2 font-semibold tracking-tight">
+        <a
+          href="#top"
+          onClick={(e) => {
+            e.preventDefault()
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+          }}
+          className="flex items-center gap-2 font-semibold tracking-tight"
+        >
           <span className="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-400 text-sm font-bold text-ink-950">
             M
           </span>
@@ -42,8 +50,9 @@ export default function Navbar() {
         <div className="hidden items-center gap-1 md:flex">
           {links.map((l) => (
             <a
-              key={l.href}
-              href={l.href}
+              key={l.id}
+              href={`#${l.id}`}
+              onClick={(e) => handleAnchorClick(e, l.id)}
               className="rounded-full px-3.5 py-1.5 text-sm text-white/70 transition-colors hover:bg-white/5 hover:text-white"
             >
               {l.label}
@@ -53,6 +62,10 @@ export default function Navbar() {
 
         <a
           href="#contact"
+          onClick={(e) => {
+            e.preventDefault()
+            scrollToId('contact')
+          }}
           className="rounded-full bg-white px-4 py-1.5 text-sm font-semibold text-ink-950 transition-transform hover:scale-105"
         >
           Get in touch

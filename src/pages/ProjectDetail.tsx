@@ -1,4 +1,4 @@
-import { useParams, Link, Navigate } from 'react-router-dom'
+import { useParams, Navigate, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {
   ArrowLeft,
@@ -67,8 +67,11 @@ function BulletList({ items, accent }: { items: string[]; accent: string }) {
 
 export default function ProjectDetail() {
   const { slug } = useParams()
+  const navigate = useNavigate()
   const project = slug ? getProject(slug) : undefined
   if (!project) return <Navigate to="/" replace />
+
+  const backToProjects = () => navigate('/', { state: { scrollTo: 'projects' } })
 
   const { accent } = project
 
@@ -79,12 +82,13 @@ export default function ProjectDetail() {
       {/* Top bar */}
       <div className="sticky top-0 z-50 border-b border-white/5 bg-ink-950/60 backdrop-blur-xl">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
-          <Link
-            to="/#projects"
+          <button
+            type="button"
+            onClick={backToProjects}
             className="inline-flex items-center gap-2 text-sm text-white/70 transition-colors hover:text-white"
           >
             <ArrowLeft size={16} /> Back to projects
-          </Link>
+          </button>
           <div className="flex items-center gap-2">
             <a
               href={project.links.github}

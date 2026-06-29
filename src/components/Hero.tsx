@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { Github, Linkedin, Mail, ArrowDown } from 'lucide-react'
 import { profile } from '../data/profile'
+import { handleAnchorClick } from '../lib/scroll'
 
 const stack = [
   'Python',
@@ -74,6 +75,7 @@ export default function Hero() {
         >
           <a
             href="#projects"
+            onClick={(e) => handleAnchorClick(e, 'projects')}
             className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-ink-950 transition-transform hover:scale-105"
           >
             View Projects
@@ -104,6 +106,7 @@ export default function Hero() {
 
         <motion.a
           href="#about"
+          onClick={(e) => handleAnchorClick(e, 'about')}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}

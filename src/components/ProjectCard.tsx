@@ -64,7 +64,7 @@ export default function ProjectCard({
         }}
         whileHover={{ scale: 1.02 }}
         transition={{ type: 'spring', stiffness: 260, damping: 22 }}
-        className="gradient-border glass group relative flex flex-col overflow-hidden rounded-[24px] p-3 shadow-2xl shadow-black/40"
+        className="gradient-border glass group relative flex h-[620px] flex-col overflow-hidden rounded-[24px] p-3 shadow-2xl shadow-black/40"
       >
         {/* Spotlight glow following the cursor */}
         <div
@@ -76,7 +76,7 @@ export default function ProjectCard({
         />
 
         {/* Banner */}
-        <div className="relative z-10 overflow-hidden rounded-[16px]">
+        <div className="relative z-10 shrink-0 overflow-hidden rounded-[16px]">
           <ProjectBanner project={project} />
           <span
             className="absolute left-4 top-4 rounded-full border px-3 py-1 text-xs font-medium backdrop-blur-md"
@@ -90,18 +90,23 @@ export default function ProjectCard({
           </span>
         </div>
 
-        {/* Body */}
-        <div className="relative z-10 flex flex-1 flex-col p-5">
-          <h3 className="text-xl font-semibold tracking-tight text-white sm:text-2xl">
-            {project.title}
-          </h3>
-          <p className="mt-0.5 text-sm font-medium" style={{ color: accent.text }}>
-            {project.org}
-          </p>
+        {/* Body — fixed header, scrollable middle, pinned actions */}
+        <div className="relative z-10 flex min-h-0 flex-1 flex-col p-5">
+          {/* Fixed header */}
+          <div className="shrink-0">
+            <h3 className="text-xl font-semibold tracking-tight text-white sm:text-2xl">
+              {project.title}
+            </h3>
+            <p className="mt-0.5 text-sm font-medium" style={{ color: accent.text }}>
+              {project.org}
+            </p>
+          </div>
 
-          <p className="mt-3 text-sm leading-relaxed text-white/60">
-            {project.shortDescription}
-          </p>
+          {/* Scrollable content — keeps every card the same height */}
+          <div className="card-scroll mt-3 min-h-0 flex-1 overflow-y-auto pr-1">
+            <p className="text-sm leading-relaxed text-white/60">
+              {project.shortDescription}
+            </p>
 
           {/* Problem statement */}
           <div className="mt-4">
@@ -169,9 +174,11 @@ export default function ProjectCard({
               ))}
             </div>
           </div>
+          </div>
+          {/* /scrollable content */}
 
-          {/* Actions */}
-          <div className="mt-6 flex flex-wrap items-center gap-3 pt-1">
+          {/* Actions — pinned at the bottom of every card */}
+          <div className="mt-5 flex shrink-0 flex-wrap items-center gap-3 border-t border-white/5 pt-4">
             <a
               href={project.links.github}
               target="_blank"
